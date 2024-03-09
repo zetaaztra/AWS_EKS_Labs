@@ -1,5 +1,4 @@
 ###### root/main.tf
-/*
 module "eks" {
   source                  = "./modules/eks"
   aws_public_subnet       = module.vpc.aws_public_subnet
@@ -12,7 +11,7 @@ module "eks" {
   scaling_desired_size    = 1
   scaling_max_size        = 1
   scaling_min_size        = 1
-  instance_types          = ["t3.small"]
+  instance_types          = ["t3.large"]
   key_pair                = "TestKeyPair"
 }
 
@@ -28,4 +27,3 @@ module "vpc" {
   rt_route_cidr_block     = "0.0.0.0/0"
 
 }
-*/

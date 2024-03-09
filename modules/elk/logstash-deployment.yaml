@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: logstash
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: logstash
+  template:
+    metadata:
+      labels:
+        app: logstash
+    spec:
+      nodeSelector:
+        eks.amazonaws.com/nodegroup: cloudquicklabs
+      containers:
+      - name: logstash
+        image: docker.elastic.co/logstash/logstash:7.10.0
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+        env:
+        - name: ELASTICSEARCH_HOST
+          value: "elasticsearch"
+        - name: ELASTICSEARCH_PORT
+          value: "9200"
+        - name: LOGSTASH_PIPELINE
+          value: |
+            input {
+              tcp {
+                port => 5000
+                codec => json
+              }
+            }
+
+            output {
+              elasticsearch {
+                hosts => ["elasticsearch:9200"]
+                index => "your-log-index-%{+YYYY.MM.dd}"
+              }
+            }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: logstash
+spec:
+  selector:
+    app: logstash
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+  type: ClusterIP

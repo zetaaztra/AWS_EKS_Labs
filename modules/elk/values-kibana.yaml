@@ -1,4 +1,0 @@
-elasticsearchHosts: "https://elasticsearch-master:9200"
-enterpriseSearch:
-  host: "https://elasticsearch-master:9200"
-

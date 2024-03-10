@@ -12,31 +12,16 @@ spec:
       labels:
         app: elasticsearch
     spec:
-      nodeSelector:
-        eks.amazonaws.com/nodegroup: cloudquicklabs
       containers:
       - name: elasticsearch
         image: docker.elastic.co/elasticsearch/elasticsearch:7.10.0
         resources:
           requests:
             memory: "2Gi"
-            cpu: "500m"
+            cpu: "200m"
           limits:
-            memory: "4Gi"
-            cpu: "1000m"
+            memory: "2Gi"
+            cpu: "500m"
         env:
         - name: discovery.type
           value: single-node
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: elasticsearch
-spec:
-  selector:
-    app: elasticsearch
-  ports:
-    - protocol: TCP
-      port: 9200
-      targetPort: 9200
-  type: ClusterIP

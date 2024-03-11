@@ -4,9 +4,21 @@ resource "kubernetes_namespace" "elk" {
   }
 }
 
+resource "null_resource" "install_kubectl" {
+  triggers = {
+    always_run = timestamp()
+  }
+
+  provisioner "local-exec" {
+    command     = "sudo apt-get update && sudo apt-get install -y kubectl"
+    working_dir = path.module
+  }
+}
+
 resource "null_resource" "apply_null_resource" {
  depends_on = [
     kubernetes_namespace.elk,
+    null_resource.install_kubectl
   ]
   triggers = {
     always_run = timestamp()

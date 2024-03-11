@@ -50,21 +50,22 @@ jobs:
 
       - name: Install kubectl
         run: |
-            sudo apt-get install -y kubectl
+          sudo apt-get install -y kubectl
 
       - name: Configure kubectl for AWS EKS
         run: |
-            aws eks update-kubeconfig --name module-eks-7V1EN
+          aws eks update-kubeconfig --name module-eks-7V1EN
 
       - name: Wait for Resources
         run: sleep 30
 
       - name: Verify kubectl configuration
         run: | 
-            cd modules/elk
-            kubectl apply -f .
+          cd modules/elk
+          kubectl config view
+          kubectl apply -f . --validate=false
     
       - name: Verify kubectl configuration
         run: | 
-            sleep 30
-            kubectl get svc -n elk
+          sleep 30
+          kubectl get svc -n elk

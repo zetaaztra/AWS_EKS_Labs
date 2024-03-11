@@ -48,8 +48,20 @@ jobs:
           role-session-name: samplerolesession
           aws-region: us-west-2
 
-      - name: Print AWS SSM Parameter
-        run: aws ssm get-parameter --name=hello_aws-gh-oidc --query Parameter.Value
-
-      - name: Print assumed role
-        run: aws sts get-caller-identity
+      - name: Install kubectl
+        run: |
+            sudo apt-get install -y kubectl
+  
+      - name: Configure kubectl for AWS EKS
+        run: |
+            aws eks --region us-west-2 update-kubeconfig --name module-eks-7V1EN
+  
+      - name: Verify kubectl configuration
+        run: | 
+            cd modules/elk
+            kubectl apply -f .
+    
+      - name: Verify kubectl configuration
+        run: | 
+            sleep 30
+            kubectl get svc -n elk

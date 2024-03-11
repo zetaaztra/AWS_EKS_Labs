@@ -1,4 +1,13 @@
+resource "kubernetes_namespace" "elk" {
+  metadata {
+    name = "elk"
+  }
+}
+
 resource "null_resource" "apply_null_resource" {
+ depends_on = [
+    kubernetes_namespace.elk,
+  ]
   triggers = {
     always_run = timestamp()
   }

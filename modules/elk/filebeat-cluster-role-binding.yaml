@@ -2,6 +2,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: filebeat-cluster-role-binding
+  namespace: elk
 subjects:
 - kind: ServiceAccount
   name: filebeat

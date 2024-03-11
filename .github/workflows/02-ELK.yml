@@ -59,7 +59,7 @@ jobs:
       - name: Wait for Resources
         run: sleep 30
 
-      - name: Verify kubectl configuration
+      - name: Deploy ELK Stack
         run: | 
           cd modules/elk
           kubectl config view

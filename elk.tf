@@ -13,8 +13,8 @@ resource "null_resource" "apply_null_resource" {
   }
 
   provisioner "local-exec" {
-    command = "kubectl apply -f elk/"
-    working_dir = "./modules/elk"
+    command     = "kubectl apply -f ./modules/elk"
+    working_dir = path.module
   }
 }
 
@@ -28,7 +28,7 @@ resource "null_resource" "get_services" {
 
   provisioner "local-exec" {
     command = "kubectl get services -o wide  > services_output.txt"
-    working_dir = "./modules/elk"
+    working_dir = path.module
   }
 }
 

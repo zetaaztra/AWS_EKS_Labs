@@ -15,6 +15,3 @@ output "cluster_name" {
   value       = module.eks.cluster_name
 }
 
-output "services_output" {
-  value = file("${path.module}/services_output.txt")
-}

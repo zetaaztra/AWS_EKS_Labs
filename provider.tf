@@ -41,9 +41,6 @@ provider "kubernetes" {
 
 }
 
-provider "kubectl" {}
-
-
 provider "aws" {
   region = "us-west-2"
 }

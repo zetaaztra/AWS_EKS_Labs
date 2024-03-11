@@ -54,7 +54,7 @@ jobs:
   
       - name: Configure kubectl for AWS EKS
         run: |
-            aws eks --region us-west-2 update-kubeconfig --name module-eks-7V1EN
+            aws eks update-kubeconfig --name module-eks-7V1EN
   
       - name: Verify kubectl configuration
         run: | 

@@ -14,6 +14,11 @@ terraform {
       source  = "hashicorp/kubernetes"
       version = ">= 2.0.1"
     }
+
+    kubectl = {
+      source  = "hashicorp/kubectl"
+      version = "2.0.0"  # Specify the version you want to use
+    }
   }
 
 backend "remote" {
@@ -39,6 +44,8 @@ provider "kubernetes" {
   token                  = data.aws_eks_cluster_auth.cluster.token
 
 }
+
+provider "kubectl" {}
 
 
 provider "aws" {

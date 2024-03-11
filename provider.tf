@@ -15,10 +15,6 @@ terraform {
       version = ">= 2.0.1"
     }
 
-    kubectl = {
-      source  = "hashicorp/kubectl"
-      version = "2.0.0"  # Specify the version you want to use
-    }
   }
 
 backend "remote" {

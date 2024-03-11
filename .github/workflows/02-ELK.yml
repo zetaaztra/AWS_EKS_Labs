@@ -1,12 +1,12 @@
 ### Reusable workflow to download terraform artifact built by `az_tf_plan` and apply the artifact/plan ###
-name: "Deploy ELK Stack"
+name: "02-ELKStack"
 on:
   workflow_dispatch:
 permissions:
   id-token: write   # This is required for requesting the JWT
   contents: read    # This is required for actions/checkout
 jobs:
-  apply-plan:
+  deploy-elkstack:
     runs-on: ubuntu-latest
     defaults:
       run:

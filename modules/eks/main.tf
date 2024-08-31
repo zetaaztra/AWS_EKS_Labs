@@ -25,7 +25,7 @@ resource "aws_eks_node_group" "cloudquicklabs" {
 
   remote_access {
     source_security_group_ids = [aws_security_group.node_group_one.id]
-    ec2_ssh_key               = var.key_pair
+    ec2_ssh_key               = var.TestKeyPair
   }
 
   scaling_config {
@@ -63,7 +63,7 @@ resource "aws_security_group" "node_group_one" {
 resource "aws_iam_role" "cloudquicklabs" {
   name = "eks-cluster-cloudquicklabs"
 
-  assume_role_policy = <<POLICY
+  assume_role_policy = 
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -76,7 +76,7 @@ resource "aws_iam_role" "cloudquicklabs" {
     }
   ]
 }
-POLICY
+
 }
 
 resource "aws_iam_role_policy_attachment" "cloudquicklabs-AmazonEKSClusterPolicy" {

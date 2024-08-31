@@ -1,3 +1,4 @@
+### Reusable workflow to download terraform artifact built by `az_tf_plan` and apply the artifact/plan ###
 name: "Apply_TF_Plan"
 on:
   workflow_call:
@@ -17,12 +18,15 @@ on:
         description: 'cli config credentials token'
         required: true
 permissions:
-  id-token: write   # Required for requesting the JWT
-  contents: read    # Required for actions/checkout
+  id-token: write   # This is required for requesting the JWT
+  contents: read    # This is required for actions/checkout
 jobs:
   apply-plan:
     runs-on: ubuntu-latest
     environment: ${{ inputs.gh_environment }}
+    defaults:
+      run:
+        shell: bash
     steps:
       - name: Checkout
         uses: actions/checkout@v3.1.0
@@ -36,7 +40,7 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init
-
+      
       - name: Terraform Validate
         id: validate
         run: terraform validate
@@ -53,12 +57,12 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -auto-approve
 
-      - name: Configure AWS credentials
+      - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: arn:aws:iam::851725491301:role/github-oidc-role
+          role-to-assume: arn:aws:iam::357171621133:role/github-oidc-role
           role-session-name: samplerolesession
-          aws-region: ap-southeast-1
+          aws-region: us-west-2
 
       - name: Print AWS SSM Parameter
         run: aws ssm get-parameter --name=hello_aws-gh-oidc --query Parameter.Value

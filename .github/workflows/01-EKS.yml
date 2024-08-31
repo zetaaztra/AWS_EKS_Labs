@@ -1,9 +1,7 @@
 name: "01-EKS"
 on:
   workflow_dispatch:
-permissions:
-  id-token: write  # Grant the necessary permission
-  contents: read
+
 jobs:
   Plan:
     uses: RekhuGopal/aws_eks_labs/.github/workflows/aws_tf_plan.yml@main

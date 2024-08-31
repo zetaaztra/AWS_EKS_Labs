@@ -63,7 +63,7 @@ resource "aws_security_group" "node_group_one" {
 resource "aws_iam_role" "cloudquicklabs" {
   name = "eks-cluster-cloudquicklabs"
 
-  assume_role_policy = 
+  assume_role_policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -76,7 +76,7 @@ resource "aws_iam_role" "cloudquicklabs" {
     }
   ]
 }
-
+POLICY
 }
 
 resource "aws_iam_role_policy_attachment" "cloudquicklabs-AmazonEKSClusterPolicy" {

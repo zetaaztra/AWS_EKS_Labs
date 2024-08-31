@@ -1,6 +1,6 @@
 resource "aws_eks_cluster" "cloudquicklabs" {
-name     = "module-eks-2K96j"
-role_arn = "arn:aws:iam::851725491301:role/YourEKSRole"
+  name     = var.cluster_name
+  role_arn = aws_iam_role.cloudquicklabs.arn
 
   vpc_config {
     subnet_ids              = var.aws_public_subnet
